@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Closure</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #3b7ca4, #67a6c4);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 8vh;
+      position: relative;
+    }
+
+    .glitter {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('./images/glitter.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.3;
+      backdrop-filter: blur(1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .content {
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .text {
+      color: #fff;
+      font-size: 4em;
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+      text-shadow: 2px 2px 8px #00000060;
+      opacity: 0;
+      animation: fadeInText 2s ease-in-out 1.2s forwards;
+    }
+
+    @keyframes fadeInText {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .video-wrapper {
+      width: 50%;
+      max-width: 700px;
+      margin-top: 30px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
+      opacity: 0;
+      animation: revealVideo 1.5s ease-out 3.5s forwards;
+    }
+
+    @keyframes revealVideo {
+      0% {
+        opacity: 0;
+        transform: scaleY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scaleY(1);
+      }
+    }
+
+    video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 20px;
+    }
+
+    .heart-overlay {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      width: 200px;
+      height: 200px;
+      background-color: rgb(213, 238, 255);
+      clip-path: path('M100 180 L20 100 A40 40 0 1 1 100 60 A40 40 0 1 1 180 100 Z');
+      z-index: 999;
+      transition: transform 2s ease-in-out;
+    }
+
+    .heart-overlay.show {
+      transform: translate(-50%, -50%) scale(25);
+    }
+
+   /* #startBtn {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      background-color: #0a2342;
+      color: white;
+      cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
+      box-shadow: 0 0 10px #00000070;
+    }*/
+  </style>
+</head>
+<body>
+
+  <div class="glitter"></div>
+
+  <div class="content">
+    <div class="text">
+      A small clip for<br>YOU
+    </div>
+
+    <div class="video-wrapper">
+      <video id="memoryVideo" src="./videos/vid.mp4" playsinline controls></video>
+    </div>
+  </div>
+
+  <div class="heart-overlay" id="heartOverlay"></div>
+
+  <!-- <button id="startBtn">▶️ Start Clip</button> -->
+
+  <script>
+    const video = document.getElementById('memoryVideo');
+    const heart = document.getElementById('heartOverlay');
+    const startBtn = document.getElementById('startBtn');
+
+    // Play video on button click
+    startBtn.addEventListener('click', () => {
+      video.play().then(() => {
+        startBtn.style.display = 'none';
+      }).catch(err => {
+        alert('Autoplay failed: ' + err.message);
+      });
+    });
+
+    // Show heart overlay when video ends
+    video.addEventListener('ended', () => {
+      heart.classList.add('show');
+      setTimeout(() => {
+        // Optional redirect here
+        // window.location.href = "nextpage.html";
+      }, 2500);
+    });
+  </script>
+
+</body>
+</html>

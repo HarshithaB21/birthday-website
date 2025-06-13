@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(to bottom, #c6e6f5, #e2f4fc);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .glitter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('./images/glitter.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.2;
+      backdrop-filter: blur(1px);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .floating-wrapper {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50vw; /* increased from 40vw */
+      max-width: 400px; /* increased from 300px */
+      animation: floatToCenter 2.5s ease-out forwards;
+      cursor: pointer;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .floating-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .tooltip {
+      position: absolute;
+      top: -55px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: transparent;
+      color: #053a95;
+      padding: 8px 14px;
+      font-size: 2.5em; /* increased from 2em */
+      font-family: 'Great Vibes', cursive;
+      text-align: center;
+      text-shadow: 2px 2px 8px #00000060;
+      border-radius: 6px;
+      opacity: 0;
+      animation: fadeIn 2.5s ease-out 2.2s forwards;
+      white-space: nowrap;
+      z-index: 3;
+    }
+
+    @keyframes floatToCenter {
+      0% {
+        top: 100%;
+        opacity: 0;
+        transform: translate(-50%, 0%) scale(0.8);
+      }
+      60% {
+        opacity: 1;
+        transform: translate(-50%, -55%) scale(1.05);
+      }
+      100% {
+        top: 50%;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glitter"></div>
+
+  <a href="letter.html" class="floating-wrapper">
+    <div class="tooltip">Click me to get your letter!</div>
+    <img src="./images/gift.png" alt="Floating Gift" class="floating-image">
+  </a>
+
+</body>
+</html>
